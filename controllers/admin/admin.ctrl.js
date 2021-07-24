@@ -21,7 +21,8 @@ const getAsync = (key) =>
 
 //실질적인 기능을 구현하기 위한 js파일
 exports.get_products = async (_, res) => {
-  let results = await getAsync("products:all");
+  let results = JSON.parse(await getAsync("products:all"));
+  //let results = await getAsync("products:all");
 
   /*redisClient.get("products:all", (err, data) => {
     if (data) {
@@ -39,7 +40,12 @@ exports.get_products = async (_, res) => {
   //변수를 productsList로 정하고 여기에 data들이 저장됨
 
   const products = await models.Products.findAll();
-  res.render("admin/products.html", { products });
+
+  if (!results) {
+    results = products;
+  }
+
+  res.render("admin/products.html", { products: results });
   /*models.Products.findAll({}).then((productList) => {
     res.render("admin/products.html", { productList: productList });*/
   //변수에 맞게
