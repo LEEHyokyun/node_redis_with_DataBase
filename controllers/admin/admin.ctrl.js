@@ -6,18 +6,43 @@ redisClient.on("error", function (err) {
   console.log("Error" + err);
 });
 
+const getAsync = (key) =>
+  new Promise((resolve, reject) => {
+    redisClient.get("products:all", (err, data) => {
+      if (data) {
+        //results = data;
+        resolve(data);
+      } else {
+        //results = null;
+        resolve(null);
+      }
+    });
+  });
+
 //실질적인 기능을 구현하기 위한 js파일
 exports.get_products = async (_, res) => {
+  let results = await getAsync("products:all");
+
+  /*redisClient.get("products:all", (err, data) => {
+    if (data) {
+      results = data;
+    } else {
+      results = null;
+    }
+  });
+  */
+
+  console.log(results);
+
   //받은 데이터로 Products database 조회하기
   //data 조건에 맞춘 조회(Query의 where절)
   //변수를 productsList로 정하고 여기에 data들이 저장됨
-  try {
-    const productList = await models.Products.findAll();
-    res.render("admin/products.html", { productList: productList });
-    /*models.Products.findAll({}).then((productList) => {
+
+  const products = await models.Products.findAll();
+  res.render("admin/products.html", { products });
+  /*models.Products.findAll({}).then((productList) => {
     res.render("admin/products.html", { productList: productList });*/
-    //변수에 맞게
-  } catch (e) {}
+  //변수에 맞게
 };
 
 exports.get_products_write = (_, res) => {
