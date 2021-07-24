@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container" style="padding-top: 10px">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+            <ul class="nav navbar-nav">
+              <!--아래 경로에서 link 매크로함수를 import한다-->
+              <!--함수인자에 맞게 전달-->
+              {% from "macro/link.html" import link %} 
+              {{ link('/admin/products', "List", req_path) }}
+              {{ link('/admin/products/write', "Write", req_path) }}
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--content 기본골격 구성하기-->
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

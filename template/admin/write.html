@@ -1,0 +1,27 @@
+{% set title = "제품 등록" %} 
+{% extends "layout/base.html" %} 
+
+{% block content%}
+<!--form형식은 데이터 입력이 필요할때 사용-->
+<!--데이터를 서버에 제출시 그 형식을 method를 통해 지정-->
+<!--수정시엔 data가 Product를 통해 전달받아 있는 상태..빈칸이 채워져 있음-->
+<!--최초 작성시엔 전달받은게 없으므로 empty 상태-->
+<form action="" method="post">
+  <table class="table table-bordered">
+    <tr>
+      <!--데이터가 서버에 제출될때 name변수에 담겨져 제출됨-->
+      <th>제품명</th>
+      <td><input type="text" name="name" class="form-control" value="{{ product.name }}"/></td>
+    </tr>
+    <tr>
+      <th>가격</th>
+      <td><input type="text" name="price" class="form-control" value="{{ product.price }}"/></td>
+    </tr>
+    <tr>
+      <th>설명</th>
+      <td><input type="text" name="description" class="form-control" value="{{ product.description }}"/></td>
+    </tr>
+  </table>
+  <button class="btn btn-primary">작성하기</button>
+</form>
+{% endblock %}

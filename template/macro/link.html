@@ -1,0 +1,15 @@
+<!--링크/링크안에 들어갈 텍스트/현재 url을 받는다-->
+<!--이에 대한 nunjucks 함수를 만든것(Template에서 생성한 함수)-->
+{#
+    href : 
+    text : 
+    current_url :     
+#}
+
+{% macro link( href, text, current_url) %}
+    <!--href 링크(request)와 현재링크(req.path)가 동일하면 class active-->
+    <!--해당 함수는 link, base.html에서 link함수를 불러와서 호출 및 사용-->
+    <li {% if href == current_url %} class = "active" {% endif %}>
+        <a href = "{{ href }}">{{ text }}</a>
+    </li>
+{% endmacro %}
