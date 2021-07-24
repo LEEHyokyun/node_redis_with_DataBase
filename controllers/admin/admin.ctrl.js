@@ -26,15 +26,14 @@ exports.post_products_write = async (req, res) => {
   //넘어오는 data는 bodyParser형태!(req.body 형태)
   //Query = insert , Sequelize = create
 
-  await models.Products.create(req.body);
+  /*await models.Products.create(req.body);
+  res.redirect("/admin/products");*/
+  models.Products.create({
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+  });
   res.redirect("/admin/products");
-  /*models.Products.create(
-    req.body
-    //저장하고 main page로 간다
-    //redirect (call back)
-  ).then(() => {
-    res.redirect("/admin/products");
-  });*/
 };
 
 //상세페이지
