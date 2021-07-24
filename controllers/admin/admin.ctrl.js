@@ -1,4 +1,10 @@
 const models = require("../../models");
+const redis = require("redis");
+const redisClient = redis.createClient();
+
+redisClient.on("error", function (err) {
+  console.log("Error" + err);
+});
 
 //실질적인 기능을 구현하기 위한 js파일
 exports.get_products = async (_, res) => {
@@ -28,11 +34,16 @@ exports.post_products_write = async (req, res) => {
 
   /*await models.Products.create(req.body);
   res.redirect("/admin/products");*/
-  models.Products.create({
+  await models.Products.create({
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
   });
+
+  const products = await models.Products.findAll();
+
+  redisClient.set("products:all", JSON.stringify(products));
+
   res.redirect("/admin/products");
 };
 
